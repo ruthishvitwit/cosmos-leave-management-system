@@ -1,0 +1,73 @@
+syntax = "proto3";
+package std.v1beta1;
+
+import "proto/cosmos/std/v1beta1/tx.proto";
+option go_package = "x/std/types";
+
+//import "google/protobuf/timestamp.proto";
+// import "gogoproto/gogo.proto";
+// import "cosmos/slashing/v1beta1/slashing.proto";
+// import "cosmos_proto/cosmos.proto";
+// import "cosmos/msg/v1/msg.proto";
+// import "amino/amino.proto";
+
+// Msg defines the lms Msg service.
+service Query {
+  // // RegisterAdmin adds a new admin
+  // rpc RegisterAdmin(RegisterAdminRequest) returns (RegisterAdminResponse);
+  
+  // AddStudent adds new student
+  rpc GetStudent(GetStudentRequest) returns (GetStudentResponse);
+  
+}
+
+
+message GetStudentRequest {
+  // admin is the account address of the admin
+ 
+}
+
+message GetStudentResponse{
+    string admin = 1;
+  
+    // students is the list of Student.
+    repeated Student students = 2;
+
+}
+
+// message ApplyLeaveRequest {
+  
+//   string address = 1;
+  //
+//   string reason = 2;
+  
+//   google.protobuf.Timestamp from = 3;
+  
+//   google.protobuf.Timestamp to = 4;
+// }
+
+// message ApplyLeaveResponse {
+
+// }
+
+// enum LeaveStatus {
+//   STATUS_UNDEFINED = 0;
+  
+//   STATUS_ACCEPTED = 1;
+  
+//   STATUS_REJECTED = 2;
+// }
+
+// message AcceptLeaveRequest {
+
+//   string admin = 1;
+  
+//   uint64 leave_id = 2;
+  
+//   LeaveStatus status = 3;
+// }
+
+// message AcceptLeaveResponse {
+
+// }
+
