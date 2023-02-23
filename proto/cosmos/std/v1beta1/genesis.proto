@@ -1,4 +1,4 @@
 syntax = "proto3";
-package lms.v1beta1;
+package cosmos.std.v1beta1;
 // import "proto/cosmos/std/v1beta1/tx.proto";
 option go_package="x/std/types";

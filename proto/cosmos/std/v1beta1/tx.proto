@@ -1,58 +1,56 @@
 syntax = "proto3";
-package std.v1beta1;
+
+package cosmos.std.v1beta1;
+
 option go_package = "x/std/types";
 
- import "google/protobuf/timestamp.proto";
-// import "gogoproto/gogo.proto";
-// import "cosmos/slashing/v1beta1/slashing.proto";
-// import "cosmos_proto/cosmos.proto";
-// import "cosmos/msg/v1/msg.proto";
-// import "amino/amino.proto";
+//import "google/protobuf/timestamp.proto";
 
-// Msg defines the lms Msg service.
+//import "gogoproto/gogo.proto";
+
 service Msg {
-  // RegisterAdmin adds a new admin
-  rpc RegisterAdmin(RegisterAdminRequest) returns (RegisterAdminResponse);
-  
-  // AddStudent adds new student
-  rpc AddStudent(AddStudentRequest) returns (AddStudentResponse);
-  
-  // ApplyLeave request a new leave
-  rpc ApplyLeave(ApplyLeaveRequest) returns (ApplyLeaveResponse);
-  
-  // AcceptLeave accept or reject a leave
-  rpc AcceptLeave(AcceptLeaveRequest) returns (AcceptLeaveResponse);
+    // RegisterAdmin adds a new admin
+    rpc RegisterAdmin(RegisterAdminRequest) returns (RegisterAdminResponse){};
+    
+    // AddStudent adds new student
+    rpc AddStudent(AddStudentRequest) returns (AddStudentResponse){};
+    
+    // ApplyLeave request a new leave
+    rpc ApplyLeave(ApplyLeaveRequest) returns (ApplyLeaveResponse){};
+    
+    // AcceptLeave accept or reject a leave
+    rpc AcceptLeave(AcceptLeaveRequest) returns (AcceptLeaveResponse){};
 }
 
 message RegisterAdminRequest {
-  // address is the account address of the admin.
-  string address = 1;
-  
-  // name is the admin name
-  string name = 2;
+    // address is the account address of the admin.
+    string address = 1;
+    
+    // name is the admin name
+    string name = 2;
 }
 
 message RegisterAdminResponse{}
 
 message AddStudentRequest {
-  // admin is the account address of the admin
-  string admin = 1;
-  
-  // students is the list of Student.
-  repeated Student students = 2;
+    // admin is the account address of the admin
+    string admin = 1;
+    
+    // students is the list of Student.
+    repeated Student students = 2;
 }
 
 message AddStudentResponse{}
 
 message ApplyLeaveRequest {
-  
-  string address = 1;
-  
-  string reason = 2;
-  
-  google.protobuf.Timestamp from = 3;
-  
-  google.protobuf.Timestamp to = 4;
+    
+    string address = 1;
+    
+    string reason = 2;
+    
+    // google.protobuf.Timestamp from = 3 ;
+    
+    // google.protobuf.Timestamp to = 4 ;
 }
 
 message ApplyLeaveResponse {
@@ -60,20 +58,20 @@ message ApplyLeaveResponse {
 }
 
 enum LeaveStatus {
-  STATUS_UNDEFINED = 0;
-  
-  STATUS_ACCEPTED = 1;
-  
-  STATUS_REJECTED = 2;
+    STATUS_UNDEFINED = 0;
+    
+    STATUS_ACCEPTED = 1;
+    
+    STATUS_REJECTED = 2;
 }
 
 message AcceptLeaveRequest {
 
-  string admin = 1;
-  
-  uint64 leave_id = 2;
-  
-  LeaveStatus status = 3;
+    string admin = 1;
+    
+    uint64 leave_id = 2;
+    
+    LeaveStatus status = 3;
 }
 
 message AcceptLeaveResponse {
@@ -81,12 +79,13 @@ message AcceptLeaveResponse {
 }
 
 message Student {
-  // address is the account address of the student.
-  string address = 1;
-  
-  // name is the student name.
-  string name = 2;
-  
-  // id is a unique student id.
-  string id = 3;
+    // address is the account address of the student.
+    string address = 1;
+    
+    // name is the student name.
+    string name = 2;
+    
+    // id is a unique student id.
+    string id = 3;
 }
+
