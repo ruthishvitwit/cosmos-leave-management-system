@@ -6,7 +6,7 @@ import (
 	//"github/ruthishvitwit/coslms/x/std/types"
 )
 
-var _ types.QueryServer = Queryserver{}
+var _ types.QueryServer = &Queryserver{}
 
 type Queryserver struct {
 	Keeper
@@ -19,6 +19,13 @@ func NewQueryServerImpl(k Keeper) types.QueryServer {
 	}
 }
 
-func (k Queryserver) GetStudent(context.Context, *types.GetStudentRequest) (*types.GetStudentResponse, error) {
-	return &types.GetStudentResponse{}, nil
+func (k Queryserver) GetStudent(context.Context, *types.GetStudentsRequest) (*types.GetStudentsResponse, error) {
+	return &types.GetStudentsResponse{}, nil
+}
+func (k Queryserver) GetLeaveRequests(context.Context, *types.GetLeaveRequestsRequest) (*types.GetLeaveRequestsResponse, error) {
+	return &types.GetLeaveRequestsResponse{}, nil
+}
+
+func (k Queryserver) GetLeaveApprovedRequests(context.Context, *types.GetLeaveApprovedRequestsRequest) (*types.GetLeaveApprovedRequestsResponse, error) {
+	return &types.GetLeaveApprovedRequestsResponse{}, nil
 }
