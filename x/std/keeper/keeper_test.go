@@ -3,7 +3,6 @@ package keeper_test
 import (
 	"coslms/x/std/keeper"
 	"coslms/x/std/types"
-	"fmt"
 	"sync"
 	"testing"
 
@@ -21,7 +20,8 @@ import (
 type TestSuite struct {
 	suite.Suite
 	ctx     sdk.Context
-	eKeeper keeper.Keeper
+	skeeper keeper.Keeper
+	*assert.Assertions
 	mu      sync.RWMutex
 	require *require.Assertions
 	t       *testing.T
@@ -36,7 +36,7 @@ func (s *TestSuite) SetupTest() {
 	keeper := keeper.NewKeeper(lmsKey, encCfg.Codec)
 	cms.MountStoreWithDB(lmsKey, storetypes.StoreTypeIAVL, db)
 	s.Require().NoError(cms.LoadLatestVersion())
-	s.eKeeper = keeper
+	s.skeeper = keeper
 	s.ctx = ctx
 }
 
@@ -65,44 +65,51 @@ func (suite *TestSuite) Require() *require.Assertions {
 	}
 	return suite.require
 }
-
-func (s *TestSuite) TestAddStudent() {
-	students := []*types.Student{
-		{
-			Address: sdk.AccAddress("abcd").String(), Name: "name1", Id: "12345",
-		},
-	}
-	req := types.AddStudentRequest{
-		Admin:    "admin1",
-		Students: students,
-	}
-	res := s.eKeeper.AddStudent(s.ctx, &req)
-	fmt.Println(res)
-}
-
-type registerAdminTest struct {
-	arg1     types.RegisterAdminRequest
-	expected string
-}
-
-var registerAdminTests = []registerAdminTest{
-	{
-		arg1: types.RegisterAdminRequest{
-			Name:    "admin1",
-			Address: sdk.AccAddress("abcd").String(),
-		},
-		expected: "Admin Registered",
-	},
+func TestTestSuite(t *testing.T) {
+	suite.Run(t, new(TestSuite))
 }
 
 func (s *TestSuite) TestRegisterAdmin() {
+	type registerAdminTest struct {
+		arg1     types.RegisterAdminRequest
+		expected error
+	}
+
+	var registerAdminTests = []registerAdminTest{
+		{
+			arg1:     types.RegisterAdminRequest{Name: "ruth", Address: sdk.AccAddress("sabab").String()},
+			expected: nil,
+		},
+		{
+			arg1:     types.RegisterAdminRequest{Name: "ruth1", Address: sdk.AccAddress("sabak").String()},
+			expected: nil,
+		},
+	}
 	require := s.Require()
 	for _, test := range registerAdminTests {
 
-		if output := s.eKeeper.RegisterAdmin(s.ctx, &test.arg1); output != test.expected {
+		if output := s.skeeper.RegisterAdmin(s.ctx, &test.arg1); output != test.expected {
 			require.Equal(test.expected, output)
 		}
-		s.eKeeper.GetAdmin(s.ctx, sdk.AccAddress("sakjhfdd").String())
 	}
 
+}
+func (s *TestSuite) TestAddStudent() {
+	students := []*types.Student{
+		{
+			Address: sdk.AccAddress("a1").String(), Name: "r1", Id: "1",
+		},
+		{
+			Address: sdk.AccAddress("a2").String(), Name: "r2", Id: "2",
+		},
+	}
+	req := types.AddStudentRequest{
+		Admin:    "ruth",
+		Students: students,
+	}
+	s.skeeper.AddStudent(s.ctx, &req)
+}
+func (s *TestSuite) TestGetStudents() {
+	s.TestAddStudent()
+	s.skeeper.GetStudent(s.ctx, &types.GetStudentsRequest{})
 }

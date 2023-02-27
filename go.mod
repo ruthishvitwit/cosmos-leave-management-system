@@ -12,7 +12,6 @@ require (
 	github.com/cosmos/cosmos-sdk v0.46.10
 	github.com/gogo/protobuf v1.3.2
 	github.com/stretchr/testify v1.8.1
-	github.com/tendermint/tm-db v0.6.7
 	google.golang.org/grpc v1.53.0
 )
 
@@ -121,6 +120,7 @@ require (
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/tendermint/go-amino v0.16.0 // indirect
 	github.com/tendermint/tendermint v0.34.26 // indirect
+	github.com/tendermint/tm-db v0.6.7 // indirect
 	github.com/tidwall/btree v1.5.0 // indirect
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	github.com/zondax/hid v0.9.1 // indirect
