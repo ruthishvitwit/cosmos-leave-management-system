@@ -1,5 +1,7 @@
 package types
 
+import "fmt"
+
 const (
 	// ModuleName is the name of the module
 	ModuleName = "std"
@@ -21,10 +23,22 @@ const (
 // - 0x03<accAddrLen (1 Byte)><accAddr_Bytes>: cryptotypes.PubKey
 
 var (
-	AdminKey = []byte{0x00}
-	StdKey   = []byte{0x01}
-	LeaveKey = []byte{0x02}
+	AdminId = []byte{0x00}
+	StdId   = []byte{0x01}
+	LeaveId = []byte{0x02}
 )
 
-// func GetadminKey(byte){
-// }
+func GetstdKey(Stud string) []byte {
+	key := make([]byte, len(StdId)+len(Stud))
+	copy(key, StdId)
+	copy(key[len(StdId):], []byte(Stud))
+	return key
+}
+func GetAdminKey(admin string) []byte {
+	key := make([]byte, len(AdminId)+len(admin))
+	copy(key, AdminId)
+	copy(key[len(AdminId):], []byte(admin))
+	fmt.Println("adminkeyprefix: ", AdminId)
+	fmt.Println("adminkey: ", key)
+	return key
+}
