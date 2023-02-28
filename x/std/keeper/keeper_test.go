@@ -109,7 +109,7 @@ func (s *TestSuite) TestAddStudent() {
 	}
 	s.skeeper.AddStudent(s.ctx, &req)
 }
-func (s *TestSuite) TestGetStudents() {
+func (s *TestSuite) TestGetStudent() {
 	s.TestAddStudent()
 	s.skeeper.GetStudent(s.ctx, &types.GetStudentsRequest{})
 }
