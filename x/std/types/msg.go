@@ -9,6 +9,8 @@ import (
 var (
 	_ sdk.Msg = &AddStudentRequest{}
 	_ sdk.Msg = &RegisterAdminRequest{}
+	_ sdk.Msg = &ApplyLeaveRequest{}
+	_ sdk.Msg = &AcceptLeaveRequest{}
 )
 
 // add student
@@ -36,9 +38,17 @@ func (msg AddStudentRequest) ValidateBasic() error {
 		return sdkerrors.ErrInvalidAddress.Wrapf("account input address: %s", err)
 	}
 	return nil
+
+}
+func (msg AddStudentRequest) Route() string {
+	return RouterKey
 }
 
-func NewRegisterAdminReq(accAddr sdk.AccAddress) *RegisterAdminRequest {
+func (msg AddStudentRequest) Type() string {
+	return "add student"
+}
+
+func RegisterAdminsReq(accAddr sdk.AccAddress) *RegisterAdminRequest {
 	return &RegisterAdminRequest{
 		Address: accAddr.String(),
 	}
@@ -60,7 +70,7 @@ func (msg RegisterAdminRequest) ValidateBasic() error {
 	}
 	return nil
 }
-func NewApplyLeaveReq(accountAddr sdk.AccAddress) *ApplyLeaveRequest {
+func ApplyLeaveReq(accountAddr sdk.AccAddress) *ApplyLeaveRequest {
 	return &ApplyLeaveRequest{
 		Address: accountAddr.String(),
 	}
@@ -81,4 +91,50 @@ func (msg ApplyLeaveRequest) ValidateBasic() error {
 		return sdkerrors.ErrInvalidAddress.Wrapf("account input address: %s", err)
 	}
 	return nil
+}
+func NewAcceptLeaveReq(accountAddr sdk.AccAddress, LeaveId string, Status string) *AcceptLeaveRequest {
+	return &AcceptLeaveRequest{
+		Admin: accountAddr.String(),
+	}
+}
+
+func (msg AcceptLeaveRequest) Route() string {
+	return RouterKey
+}
+
+func (msg AcceptLeaveRequest) Type() string {
+	return "accept leave"
+}
+
+func (msg AcceptLeaveRequest) GetSignBytes() []byte {
+	b := ModuleCdc.MustMarshalJSON(&msg)
+	return sdk.MustSortJSON(b)
+}
+
+func (msg AcceptLeaveRequest) GetSigners() []sdk.AccAddress {
+	valAddr, _ := sdk.AccAddressFromBech32(msg.Admin)
+	return []sdk.AccAddress{sdk.AccAddress(valAddr)}
+}
+
+func (msg AcceptLeaveRequest) ValidateBasic() error {
+	if _, err := sdk.AccAddressFromBech32(msg.Admin); err != nil {
+		return sdkerrors.ErrInvalidAddress.Wrapf("account input address: %s", err)
+	}
+	return nil
+}
+
+func (msg ApplyLeaveRequest) Route() string {
+	return RouterKey
+}
+
+func (msg ApplyLeaveRequest) Type() string {
+	return "apply leave"
+}
+
+func (msg RegisterAdminRequest) Route() string {
+	return RouterKey
+}
+
+func (msg RegisterAdminRequest) Type() string {
+	return "register admin"
 }

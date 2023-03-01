@@ -5,6 +5,6 @@ import (
 )
 
 var (
-	ErrAdminNameNil    = sdkerrors.Register(ModuleName, 1, "Admin name cannot be empty")
-	ErrAdminAddressNil = sdkerrors.Register(ModuleName, 2, "Admin address cannot be empty")
+	ErrNoAdminName    = sdkerrors.Register(ModuleName, 1, "Admin name cannot be empty")
+	ErrNoAdminAddress = sdkerrors.Register(ModuleName, 2, "Admin address cannot be empty")
 )

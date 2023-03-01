@@ -4,7 +4,7 @@ package cosmos.std.v1beta1;
 
 option go_package = "x/std/types";
 
-//import "google/protobuf/timestamp.proto";
+import "google/protobuf/timestamp.proto";
 
 //import "gogoproto/gogo.proto";
 
@@ -48,9 +48,9 @@ message ApplyLeaveRequest {
     
     string reason = 2;
     
-    // google.protobuf.Timestamp from = 3 ;
+     google.protobuf.Timestamp from = 3 ;
     
-    // google.protobuf.Timestamp to = 4 ;
+     google.protobuf.Timestamp to = 4 ;
 }
 
 message ApplyLeaveResponse {

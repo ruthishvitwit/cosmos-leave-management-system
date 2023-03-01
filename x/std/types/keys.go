@@ -5,23 +5,12 @@ import "fmt"
 const (
 	// ModuleName is the name of the module
 	ModuleName = "lms"
-
-	// StoreKey is the store key string for slashing
-	StoreKey = ModuleName
-
-	// RouterKey is the message route for slashing
-	RouterKey    = ModuleName
+	StoreKey   = ModuleName
+	// RouterKey is the message route
+	RouterKey = ModuleName
+	// RouterKey is the query route
 	QuerierRoute = ModuleName
 )
-
-// Keys for slashing store
-// Items are stored with the following key: values
-//
-// - 0x01<consAddrLen (1 Byte)><consAddress_Bytes>: ValidatorSigningInfo
-//
-// - 0x02<consAddrLen (1 Byte)><consAddress_Bytes><period_Bytes>: bool
-//
-// - 0x03<accAddrLen (1 Byte)><accAddr_Bytes>: cryptotypes.PubKey
 
 var (
 	AdminId     = []byte{0x00}
@@ -45,24 +34,24 @@ func GetAdminKey(admin string) []byte {
 	fmt.Println("adminkey: ", key)
 	return key
 }
-func LeaveStoreKey(sid string, studentLeavesCount string) []byte {
-	key := make([]byte, len(LeaveId)+len(sid)+len(studentLeavesCount))
+func StudentLeaveKey(id string, LeavesCount string) []byte {
+	key := make([]byte, len(LeaveId)+len(id)+len(LeavesCount))
 	copy(key, LeaveId)
-	copy(key[len(LeaveId):], []byte(sid))
-	copy(key[len(LeaveId)+len(sid):], []byte(studentLeavesCount))
+	copy(key[len(LeaveId):], []byte(id))
+	copy(key[len(LeaveId)+len(id):], []byte(LeavesCount))
 	return key
 }
 
-func StudentLeavesCounterKey(sid string) []byte {
-	key := make([]byte, len(CounterId)+len(sid))
+func LeavesCounterKey(id string) []byte {
+	key := make([]byte, len(CounterId)+len(id))
 	copy(key, CounterId)
-	copy(key[len(CounterId):], []byte(sid))
+	copy(key[len(CounterId):], []byte(id))
 	return key
 }
 
-func AcceptLeaveStoreKey(leaveid string) []byte {
-	key := make([]byte, len(LeaveAccept)+len(leaveid))
-	copy(key, leaveid)
-	copy(key[len(LeaveAccept):], []byte(leaveid))
+func AcceptLeaveKey(leavedata string) []byte {
+	key := make([]byte, len(LeaveAccept)+len(leavedata))
+	copy(key, leavedata)
+	copy(key[len(LeaveAccept):], []byte(leavedata))
 	return key
 }

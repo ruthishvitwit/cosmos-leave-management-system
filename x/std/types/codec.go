@@ -24,7 +24,7 @@ func RegisterInterfaces(registry types.InterfaceRegistry) {
 		&RegisterAdminRequest{},
 		&AddStudentRequest{},
 		&ApplyLeaveRequest{},
-		//&AcceptLeaveRequest{},
+		&AcceptLeaveRequest{},
 	)
 
 	msgservice.RegisterMsgServiceDesc(registry, &_Msg_serviceDesc)

@@ -29,9 +29,9 @@ func handleError(err error) {
 func (k Keeper) RegisterAdmin(ctx sdk.Context, registerAdmin *types.RegisterAdminRequest) error {
 
 	if registerAdmin.Name == "" {
-		return types.ErrAdminNameNil
+		return types.ErrNoAdminName
 	} else if registerAdmin.Address == "" {
-		return types.ErrAdminAddressNil
+		return types.ErrNoAdminAddress
 	} else {
 		store := ctx.KVStore(k.storeKey)
 		marshalRegisterAdmin, err := k.cdc.Marshal(registerAdmin)
@@ -79,7 +79,7 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, applyLeave *types.ApplyLeaveRequest)
 	store := ctx.KVStore(k.storeKey)
 	marshalApplyLeave, err := k.cdc.Marshal(applyLeave)
 	handleError(err)
-	addr := types.StudentLeavesCounterKey(sdk.AccAddress(string(applyLeave.Address)).String())
+	addr := types.LeavesCounterKey(sdk.AccAddress(string(applyLeave.Address)).String())
 	counter := store.Get(addr)
 	if counter == nil {
 		store.Set(addr, []byte("1"))
@@ -91,7 +91,7 @@ func (k Keeper) ApplyLeave(ctx sdk.Context, applyLeave *types.ApplyLeaveRequest)
 	}
 	counter = store.Get(addr)
 	handleError(err)
-	store.Set(types.LeaveStoreKey(applyLeave.Address, string(counter)), marshalApplyLeave)
+	store.Set(types.StudentLeaveKey(applyLeave.Address, string(counter)), marshalApplyLeave)
 	// id := types.LeaveStoreKey(applyLeave.Address, string(counter))
 	return "Leave Applied Successfully"
 }
@@ -100,8 +100,8 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, acceptLeave *types.AcceptLeaveReque
 	store := ctx.KVStore(k.storeKey)
 	marshalAcceptLeave, err := k.cdc.Marshal(acceptLeave)
 	handleError(err)
-	leaveid := store.Get(types.StudentLeavesCounterKey(acceptLeave.LeaveId))
-	store.Set(types.AcceptLeaveStoreKey(string(leaveid)), marshalAcceptLeave)
+	leaveid := store.Get(types.LeavesCounterKey(acceptLeave.LeaveId))
+	store.Set(types.AcceptLeaveKey(string(leaveid)), marshalAcceptLeave)
 	return "Leave Status Updated"
 }
 
