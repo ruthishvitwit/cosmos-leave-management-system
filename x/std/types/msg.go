@@ -70,9 +70,10 @@ func (msg RegisterAdminRequest) ValidateBasic() error {
 	}
 	return nil
 }
-func ApplyLeaveReq(accountAddr sdk.AccAddress) *ApplyLeaveRequest {
+func ApplyLeaveReq(accountAddr sdk.AccAddress, reason string) *ApplyLeaveRequest {
 	return &ApplyLeaveRequest{
 		Address: accountAddr.String(),
+		Reason:  reason,
 	}
 }
 

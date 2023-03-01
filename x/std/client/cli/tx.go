@@ -8,6 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
 	"github.com/cosmos/cosmos-sdk/client/tx"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	//"github.com/cosmos/cosmos-sdk/x/staking/types"
 )
 
@@ -33,17 +34,19 @@ func NewTxCmd() *cobra.Command {
 	}
 
 	stdTxCmd.AddCommand(
-		NewAddStudentCmd(),
-		NewRegisterAdminCmd(),
+		AddStudentCmd(),
+		RegisterAdminCmd(),
+		ApplyLeaveReqCmd(),
+		AcceptLeaveReqCmd(),
 	)
 
 	return stdTxCmd
 }
-func NewRegisterAdminCmd() *cobra.Command {
+func RegisterAdminCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "registerAdmin",
-		Short: "| address | Name |",
-		Long:  `registers admin`,
+		Short: "registerAdmin -name- -address-",
+		Long:  `to register admin`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -62,11 +65,11 @@ func NewRegisterAdminCmd() *cobra.Command {
 	return cmd
 }
 
-func NewAddStudentCmd() *cobra.Command {
+func AddStudentCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "addstud",
-		Short: "| address | Name |id",
-		Long:  `add student`,
+		Short: "addstud -address-  -Name- -id-",
+		Long:  `adds student`,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientTxContext(cmd)
 			if err != nil {
@@ -90,6 +93,48 @@ func NewAddStudentCmd() *cobra.Command {
 		},
 	}
 
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
+}
+
+func ApplyLeaveReqCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "applyleave",
+		Short: "applyleave -Address- -Reason-",
+		Long:  "To apply for a leave",
+		Args:  cobra.ExactArgs(4),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCtx, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			Address := args[0]
+			Reason := args[1]
+			msg := types.ApplyLeaveReq(sdk.AccAddress(Address), Reason)
+			return tx.GenerateOrBroadcastTxCLI(clientCtx, cmd.Flags(), msg)
+		},
+	}
+	flags.AddTxFlagsToCmd(cmd)
+	return cmd
+}
+func AcceptLeaveReqCmd() *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "acceptleave ",
+		Short: "acceptleave -Admin- -LeaveId- -Status-",
+		Long:  "To accept a leave request",
+		Args:  cobra.ExactArgs(3),
+		RunE: func(cmd *cobra.Command, args []string) error {
+			clientCxt, err := client.GetClientTxContext(cmd)
+			if err != nil {
+				return err
+			}
+			Admin := args[0]
+			LeaveId := args[1]
+			Status := args[2]
+			msg := types.NewAcceptLeaveReq(sdk.AccAddress(Admin), LeaveId, Status)
+			return tx.GenerateOrBroadcastTxCLI(clientCxt, cmd.Flags(), msg)
+		},
+	}
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
 }

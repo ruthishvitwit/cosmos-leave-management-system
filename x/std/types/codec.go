@@ -14,7 +14,7 @@ func RegisterLegacyAminoCodec(cdc *codec.LegacyAmino) {
 	legacy.RegisterAminoMsg(cdc, &RegisterAdminRequest{}, "coslms/RegisterAdminRequest")
 	legacy.RegisterAminoMsg(cdc, &AddStudentRequest{}, "coslms/AddStudentRequest")
 	legacy.RegisterAminoMsg(cdc, &ApplyLeaveRequest{}, "coslms/ApplyLeaveRequest")
-	//legacy.RegisterAminoMsg(cdc, &AcceptLeaveRequest{}, "coslms/AcceptLeaveRequest")
+	legacy.RegisterAminoMsg(cdc, &AcceptLeaveRequest{}, "coslms/AcceptLeaveRequest")
 
 }
 
