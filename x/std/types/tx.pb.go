@@ -325,7 +325,7 @@ var xxx_messageInfo_ApplyLeaveResponse proto.InternalMessageInfo
 
 type AcceptLeaveRequest struct {
 	Admin   string      `protobuf:"bytes,1,opt,name=admin,proto3" json:"admin,omitempty"`
-	LeaveId uint64      `protobuf:"varint,2,opt,name=leave_id,json=leaveId,proto3" json:"leave_id,omitempty"`
+	LeaveId string      `protobuf:"bytes,2,opt,name=leave_id,json=leaveId,proto3" json:"leave_id,omitempty"`
 	Status  LeaveStatus `protobuf:"varint,3,opt,name=status,proto3,enum=cosmos.std.v1beta1.LeaveStatus" json:"status,omitempty"`
 }
 
@@ -369,11 +369,11 @@ func (m *AcceptLeaveRequest) GetAdmin() string {
 	return ""
 }
 
-func (m *AcceptLeaveRequest) GetLeaveId() uint64 {
+func (m *AcceptLeaveRequest) GetLeaveId() string {
 	if m != nil {
 		return m.LeaveId
 	}
-	return 0
+	return ""
 }
 
 func (m *AcceptLeaveRequest) GetStatus() LeaveStatus {
@@ -498,38 +498,38 @@ func init() {
 func init() { proto.RegisterFile("cosmos/std/v1beta1/tx.proto", fileDescriptor_755ab15dc8b37dc6) }
 
 var fileDescriptor_755ab15dc8b37dc6 = []byte{
-	// 482 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0xc1, 0x6e, 0xd3, 0x40,
-	0x10, 0x86, 0x6d, 0xa7, 0x24, 0xed, 0x44, 0x94, 0x74, 0x9a, 0x82, 0x49, 0x25, 0x13, 0x59, 0x2a,
-	0x04, 0x0e, 0x8e, 0x1a, 0x0e, 0x3d, 0x9b, 0xc4, 0xa0, 0x22, 0x5a, 0x21, 0x27, 0xbd, 0x20, 0xa1,
-	0xe2, 0x64, 0x97, 0xca, 0x52, 0x63, 0x9b, 0xcc, 0xa6, 0x6a, 0x2f, 0xbc, 0x01, 0x12, 0x8f, 0xc5,
-	0xb1, 0x47, 0x8e, 0x28, 0x79, 0x11, 0x94, 0xcd, 0xa6, 0x38, 0xb5, 0xab, 0xd0, 0x9b, 0x67, 0xfc,
-	0xef, 0xf7, 0xef, 0xec, 0xfe, 0x5a, 0xd8, 0x1d, 0xc4, 0x34, 0x8c, 0xa9, 0x49, 0x82, 0x35, 0x2f,
-	0xf6, 0xfb, 0x5c, 0x04, 0xfb, 0x4d, 0x71, 0xe9, 0x24, 0xa3, 0x58, 0xc4, 0x88, 0xf3, 0x9f, 0x0e,
-	0x09, 0xe6, 0xa8, 0x9f, 0x76, 0x07, 0xaa, 0x3e, 0x3f, 0x0b, 0x49, 0xf0, 0x91, 0xcb, 0x86, 0x61,
-	0xe4, 0xf3, 0x6f, 0x63, 0x4e, 0x02, 0x4d, 0x28, 0x05, 0x8c, 0x8d, 0x38, 0x91, 0xa9, 0xd7, 0xf5,
-	0xc6, 0x86, 0xbf, 0x28, 0x11, 0x61, 0x2d, 0x0a, 0x86, 0xdc, 0x34, 0x64, 0x5b, 0x7e, 0xdb, 0x4f,
-	0x60, 0xe7, 0x16, 0x85, 0x92, 0x38, 0x22, 0x6e, 0xf7, 0x61, 0xcb, 0x65, 0xac, 0x2b, 0xc6, 0x8c,
-	0x47, 0x62, 0xc1, 0xae, 0xc2, 0x83, 0x60, 0xa6, 0x52, 0xe4, 0x79, 0x81, 0x07, 0xb0, 0x4e, 0x73,
-	0x1d, 0x99, 0x46, 0xbd, 0xd0, 0x28, 0xb7, 0x76, 0x9d, 0xec, 0x86, 0x9d, 0x05, 0xeb, 0x46, 0x6c,
-	0x57, 0x01, 0xd3, 0x1e, 0xca, 0xd9, 0x83, 0x2d, 0x37, 0x49, 0xce, 0xaf, 0x3e, 0xf0, 0xe0, 0x82,
-	0xaf, 0x9e, 0xea, 0x31, 0x14, 0x47, 0x3c, 0xa0, 0x38, 0x52, 0x73, 0xa9, 0x4a, 0xc2, 0x53, 0x18,
-	0x05, 0xff, 0x0e, 0xe8, 0x0e, 0x06, 0x3c, 0x11, 0x4b, 0xf4, 0xfc, 0xb9, 0x9e, 0xc2, 0xfa, 0xf9,
-	0x4c, 0x75, 0x1a, 0x32, 0xc9, 0x5e, 0xf3, 0x4b, 0xb2, 0x3e, 0x64, 0x78, 0x00, 0x45, 0x12, 0x81,
-	0x18, 0x93, 0x59, 0xa8, 0xeb, 0x8d, 0xcd, 0xd6, 0xb3, 0xbc, 0x81, 0xa5, 0x45, 0x57, 0xca, 0x7c,
-	0x25, 0xb7, 0x77, 0x60, 0x7b, 0xc9, 0x5f, 0x6d, 0xeb, 0x1d, 0x94, 0xd4, 0x31, 0xdc, 0xef, 0xfe,
-	0x70, 0x13, 0x8c, 0x90, 0xc9, 0x4d, 0x6c, 0xf8, 0x46, 0xc8, 0x5e, 0x1d, 0x41, 0x39, 0x65, 0x8b,
-	0x55, 0xa8, 0x74, 0x7b, 0x6e, 0xef, 0xa4, 0x7b, 0x7a, 0x72, 0xdc, 0xf1, 0xde, 0x1e, 0x1e, 0x7b,
-	0x9d, 0x8a, 0x86, 0xdb, 0xf0, 0x48, 0x75, 0xdd, 0x76, 0xdb, 0xfb, 0xd8, 0xf3, 0x3a, 0x15, 0x3d,
-	0xd5, 0xf4, 0xbd, 0xf7, 0x5e, 0x7b, 0xd6, 0x34, 0x5a, 0x3f, 0x0a, 0x50, 0x38, 0xa2, 0x33, 0xfc,
-	0x0a, 0x0f, 0x97, 0x62, 0x82, 0x8d, 0xbc, 0x81, 0xf3, 0xf2, 0x58, 0x7b, 0xf9, 0x1f, 0x4a, 0x75,
-	0x0a, 0x1a, 0x7e, 0x06, 0xf8, 0x97, 0x08, 0xdc, 0xcb, 0x5b, 0x9a, 0x49, 0x65, 0xed, 0xf9, 0x2a,
-	0xd9, 0x12, 0xfe, 0x26, 0x13, 0x77, 0xe0, 0x6f, 0x47, 0xef, 0x0e, 0x7c, 0x36, 0x5a, 0x1a, 0x7e,
-	0x81, 0x72, 0xea, 0x72, 0x31, 0x7f, 0x61, 0x26, 0x7d, 0xb5, 0x17, 0x2b, 0x75, 0x0b, 0x87, 0x37,
-	0x7b, 0xbf, 0x26, 0x96, 0x7e, 0x3d, 0xb1, 0xf4, 0x3f, 0x13, 0x4b, 0xff, 0x39, 0xb5, 0xb4, 0xeb,
-	0xa9, 0xa5, 0xfd, 0x9e, 0x5a, 0xda, 0xa7, 0xf2, 0xa5, 0x7c, 0x3a, 0xc4, 0x55, 0xc2, 0xa9, 0x5f,
-	0x94, 0xcf, 0xc6, 0xeb, 0xbf, 0x01, 0x00, 0x00, 0xff, 0xff, 0x18, 0x60, 0xd3, 0x69, 0x55, 0x04,
-	0x00, 0x00,
+	// 485 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0x4d, 0x6f, 0xda, 0x40,
+	0x10, 0xb5, 0x4d, 0x0b, 0xc9, 0xa0, 0x52, 0x32, 0x21, 0xad, 0x4b, 0x24, 0x17, 0x59, 0x4a, 0x4b,
+	0x7b, 0x30, 0x0a, 0x3d, 0xe4, 0xec, 0x82, 0x5b, 0xa5, 0x2a, 0x51, 0x65, 0xc8, 0xa5, 0x97, 0xd4,
+	0xb0, 0x2b, 0x64, 0x29, 0xd8, 0x2e, 0xb3, 0x44, 0xc9, 0xa5, 0xbf, 0xa1, 0xd7, 0xfe, 0xa3, 0x1e,
+	0x73, 0xec, 0xb1, 0x82, 0x3f, 0x52, 0xb1, 0x2c, 0x09, 0x1f, 0x46, 0x34, 0xb7, 0x9d, 0xd9, 0xb7,
+	0xef, 0xcd, 0xdb, 0x7d, 0x5a, 0x38, 0xec, 0xc5, 0x34, 0x88, 0xa9, 0x46, 0x82, 0xd5, 0xae, 0x8e,
+	0xbb, 0x5c, 0x04, 0xc7, 0x35, 0x71, 0xed, 0x24, 0xc3, 0x58, 0xc4, 0x88, 0xb3, 0x4d, 0x87, 0x04,
+	0x73, 0xd4, 0xa6, 0xdd, 0x84, 0x92, 0xcf, 0xfb, 0x21, 0x09, 0x3e, 0x74, 0xd9, 0x20, 0x8c, 0x7c,
+	0xfe, 0x7d, 0xc4, 0x49, 0xa0, 0x09, 0xb9, 0x80, 0xb1, 0x21, 0x27, 0x32, 0xf5, 0x8a, 0x5e, 0xdd,
+	0xf5, 0xe7, 0x25, 0x22, 0x3c, 0x8a, 0x82, 0x01, 0x37, 0x0d, 0xd9, 0x96, 0x6b, 0xfb, 0x39, 0x1c,
+	0xac, 0xb0, 0x50, 0x12, 0x47, 0xc4, 0xed, 0x2e, 0xec, 0xb9, 0x8c, 0xb5, 0xc5, 0x88, 0xf1, 0x48,
+	0xcc, 0xb9, 0x4b, 0xf0, 0x38, 0x98, 0xa2, 0x14, 0xf3, 0xac, 0xc0, 0x13, 0xd8, 0xa1, 0x19, 0x8e,
+	0x4c, 0xa3, 0x92, 0xa9, 0xe6, 0xeb, 0x87, 0xce, 0xfa, 0xc0, 0xce, 0x9c, 0xeb, 0x0e, 0x6c, 0x97,
+	0x00, 0x17, 0x35, 0x94, 0xb2, 0x07, 0x7b, 0x6e, 0x92, 0x5c, 0xde, 0x7c, 0xe6, 0xc1, 0x15, 0xdf,
+	0xee, 0xea, 0x19, 0x64, 0x87, 0x3c, 0xa0, 0x38, 0x52, 0xbe, 0x54, 0x25, 0xc9, 0x17, 0x68, 0x14,
+	0xf9, 0x0f, 0x40, 0xb7, 0xd7, 0xe3, 0x89, 0x58, 0x62, 0x4f, 0xf7, 0xf5, 0x02, 0x76, 0x2e, 0xa7,
+	0xa8, 0x8b, 0x90, 0x29, 0xee, 0x9c, 0xac, 0x4f, 0x19, 0x9e, 0x40, 0x96, 0x44, 0x20, 0x46, 0x64,
+	0x66, 0x2a, 0x7a, 0xb5, 0x50, 0x7f, 0x99, 0x66, 0x58, 0x4a, 0xb4, 0x25, 0xcc, 0x57, 0x70, 0xfb,
+	0x00, 0xf6, 0x97, 0xf4, 0xd5, 0x58, 0x1f, 0x21, 0xa7, 0xae, 0xe1, 0x61, 0xef, 0x87, 0x05, 0x30,
+	0x42, 0x26, 0x87, 0xd8, 0xf5, 0x8d, 0x90, 0xbd, 0x6d, 0x41, 0x7e, 0x41, 0x16, 0x4b, 0x50, 0x6c,
+	0x77, 0xdc, 0xce, 0x79, 0xfb, 0xe2, 0xfc, 0xac, 0xe9, 0x7d, 0x38, 0x3d, 0xf3, 0x9a, 0x45, 0x0d,
+	0xf7, 0xe1, 0xa9, 0xea, 0xba, 0x8d, 0x86, 0xf7, 0xa5, 0xe3, 0x35, 0x8b, 0xfa, 0x42, 0xd3, 0xf7,
+	0x3e, 0x79, 0x8d, 0x69, 0xd3, 0xa8, 0xff, 0xca, 0x40, 0xa6, 0x45, 0x7d, 0x0c, 0xa1, 0xd8, 0xa2,
+	0xfe, 0x52, 0x52, 0xb0, 0x9a, 0xe6, 0x39, 0x2d, 0x92, 0xe5, 0x37, 0xff, 0x81, 0x54, 0x17, 0xa1,
+	0xe1, 0x37, 0x78, 0xd2, 0xa2, 0xfe, 0x7d, 0x2e, 0xf0, 0x28, 0xed, 0xf4, 0x5a, 0x36, 0xcb, 0xaf,
+	0xb6, 0xc1, 0x56, 0x15, 0xee, 0xc2, 0xb1, 0x41, 0x61, 0x35, 0x83, 0x1b, 0x14, 0xd6, 0x33, 0xa6,
+	0x61, 0x0f, 0x0a, 0x53, 0x85, 0xfb, 0x87, 0xc6, 0xf4, 0xb3, 0x6b, 0x49, 0x2c, 0xbf, 0xde, 0x8a,
+	0x9b, 0x8b, 0xbc, 0x3f, 0xfa, 0x3d, 0xb6, 0xf4, 0xdb, 0xb1, 0xa5, 0xff, 0x1d, 0x5b, 0xfa, 0xcf,
+	0x89, 0xa5, 0xdd, 0x4e, 0x2c, 0xed, 0xcf, 0xc4, 0xd2, 0xbe, 0xe6, 0xaf, 0xe5, 0x37, 0x22, 0x6e,
+	0x12, 0x4e, 0xdd, 0xac, 0xfc, 0x42, 0xde, 0xfd, 0x0b, 0x00, 0x00, 0xff, 0xff, 0x75, 0x5c, 0x7f,
+	0xde, 0x61, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -545,13 +545,13 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
 	// RegisterAdmin adds a new admin
-	RegisterAdmin(ctx context.Context, in *RegisterAdminRequest, opts ...grpc.CallOption) (*RegisterAdminResponse, error)
+	MsgRegisterAdmin(ctx context.Context, in *RegisterAdminRequest, opts ...grpc.CallOption) (*RegisterAdminResponse, error)
 	// AddStudent adds new student
-	AddStudent(ctx context.Context, in *AddStudentRequest, opts ...grpc.CallOption) (*AddStudentResponse, error)
+	MsgAddStudent(ctx context.Context, in *AddStudentRequest, opts ...grpc.CallOption) (*AddStudentResponse, error)
 	// ApplyLeave request a new leave
-	ApplyLeave(ctx context.Context, in *ApplyLeaveRequest, opts ...grpc.CallOption) (*ApplyLeaveResponse, error)
+	MsgApplyLeave(ctx context.Context, in *ApplyLeaveRequest, opts ...grpc.CallOption) (*ApplyLeaveResponse, error)
 	// AcceptLeave accept or reject a leave
-	AcceptLeave(ctx context.Context, in *AcceptLeaveRequest, opts ...grpc.CallOption) (*AcceptLeaveResponse, error)
+	MsgAcceptLeave(ctx context.Context, in *AcceptLeaveRequest, opts ...grpc.CallOption) (*AcceptLeaveResponse, error)
 }
 
 type msgClient struct {
@@ -562,36 +562,36 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) RegisterAdmin(ctx context.Context, in *RegisterAdminRequest, opts ...grpc.CallOption) (*RegisterAdminResponse, error) {
+func (c *msgClient) MsgRegisterAdmin(ctx context.Context, in *RegisterAdminRequest, opts ...grpc.CallOption) (*RegisterAdminResponse, error) {
 	out := new(RegisterAdminResponse)
-	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/RegisterAdmin", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/MsgRegisterAdmin", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) AddStudent(ctx context.Context, in *AddStudentRequest, opts ...grpc.CallOption) (*AddStudentResponse, error) {
+func (c *msgClient) MsgAddStudent(ctx context.Context, in *AddStudentRequest, opts ...grpc.CallOption) (*AddStudentResponse, error) {
 	out := new(AddStudentResponse)
-	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/AddStudent", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/MsgAddStudent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) ApplyLeave(ctx context.Context, in *ApplyLeaveRequest, opts ...grpc.CallOption) (*ApplyLeaveResponse, error) {
+func (c *msgClient) MsgApplyLeave(ctx context.Context, in *ApplyLeaveRequest, opts ...grpc.CallOption) (*ApplyLeaveResponse, error) {
 	out := new(ApplyLeaveResponse)
-	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/ApplyLeave", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/MsgApplyLeave", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *msgClient) AcceptLeave(ctx context.Context, in *AcceptLeaveRequest, opts ...grpc.CallOption) (*AcceptLeaveResponse, error) {
+func (c *msgClient) MsgAcceptLeave(ctx context.Context, in *AcceptLeaveRequest, opts ...grpc.CallOption) (*AcceptLeaveResponse, error) {
 	out := new(AcceptLeaveResponse)
-	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/AcceptLeave", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/cosmos.std.v1beta1.Msg/MsgAcceptLeave", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -601,104 +601,104 @@ func (c *msgClient) AcceptLeave(ctx context.Context, in *AcceptLeaveRequest, opt
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// RegisterAdmin adds a new admin
-	RegisterAdmin(context.Context, *RegisterAdminRequest) (*RegisterAdminResponse, error)
+	MsgRegisterAdmin(context.Context, *RegisterAdminRequest) (*RegisterAdminResponse, error)
 	// AddStudent adds new student
-	AddStudent(context.Context, *AddStudentRequest) (*AddStudentResponse, error)
+	MsgAddStudent(context.Context, *AddStudentRequest) (*AddStudentResponse, error)
 	// ApplyLeave request a new leave
-	ApplyLeave(context.Context, *ApplyLeaveRequest) (*ApplyLeaveResponse, error)
+	MsgApplyLeave(context.Context, *ApplyLeaveRequest) (*ApplyLeaveResponse, error)
 	// AcceptLeave accept or reject a leave
-	AcceptLeave(context.Context, *AcceptLeaveRequest) (*AcceptLeaveResponse, error)
+	MsgAcceptLeave(context.Context, *AcceptLeaveRequest) (*AcceptLeaveResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) RegisterAdmin(ctx context.Context, req *RegisterAdminRequest) (*RegisterAdminResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterAdmin not implemented")
+func (*UnimplementedMsgServer) MsgRegisterAdmin(ctx context.Context, req *RegisterAdminRequest) (*RegisterAdminResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgRegisterAdmin not implemented")
 }
-func (*UnimplementedMsgServer) AddStudent(ctx context.Context, req *AddStudentRequest) (*AddStudentResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddStudent not implemented")
+func (*UnimplementedMsgServer) MsgAddStudent(ctx context.Context, req *AddStudentRequest) (*AddStudentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgAddStudent not implemented")
 }
-func (*UnimplementedMsgServer) ApplyLeave(ctx context.Context, req *ApplyLeaveRequest) (*ApplyLeaveResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ApplyLeave not implemented")
+func (*UnimplementedMsgServer) MsgApplyLeave(ctx context.Context, req *ApplyLeaveRequest) (*ApplyLeaveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgApplyLeave not implemented")
 }
-func (*UnimplementedMsgServer) AcceptLeave(ctx context.Context, req *AcceptLeaveRequest) (*AcceptLeaveResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AcceptLeave not implemented")
+func (*UnimplementedMsgServer) MsgAcceptLeave(ctx context.Context, req *AcceptLeaveRequest) (*AcceptLeaveResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MsgAcceptLeave not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_RegisterAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Msg_MsgRegisterAdmin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RegisterAdminRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).RegisterAdmin(ctx, in)
+		return srv.(MsgServer).MsgRegisterAdmin(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cosmos.std.v1beta1.Msg/RegisterAdmin",
+		FullMethod: "/cosmos.std.v1beta1.Msg/MsgRegisterAdmin",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).RegisterAdmin(ctx, req.(*RegisterAdminRequest))
+		return srv.(MsgServer).MsgRegisterAdmin(ctx, req.(*RegisterAdminRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AddStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Msg_MsgAddStudent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AddStudentRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AddStudent(ctx, in)
+		return srv.(MsgServer).MsgAddStudent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cosmos.std.v1beta1.Msg/AddStudent",
+		FullMethod: "/cosmos.std.v1beta1.Msg/MsgAddStudent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AddStudent(ctx, req.(*AddStudentRequest))
+		return srv.(MsgServer).MsgAddStudent(ctx, req.(*AddStudentRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_ApplyLeave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Msg_MsgApplyLeave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ApplyLeaveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).ApplyLeave(ctx, in)
+		return srv.(MsgServer).MsgApplyLeave(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cosmos.std.v1beta1.Msg/ApplyLeave",
+		FullMethod: "/cosmos.std.v1beta1.Msg/MsgApplyLeave",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).ApplyLeave(ctx, req.(*ApplyLeaveRequest))
+		return srv.(MsgServer).MsgApplyLeave(ctx, req.(*ApplyLeaveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Msg_AcceptLeave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Msg_MsgAcceptLeave_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(AcceptLeaveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).AcceptLeave(ctx, in)
+		return srv.(MsgServer).MsgAcceptLeave(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/cosmos.std.v1beta1.Msg/AcceptLeave",
+		FullMethod: "/cosmos.std.v1beta1.Msg/MsgAcceptLeave",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).AcceptLeave(ctx, req.(*AcceptLeaveRequest))
+		return srv.(MsgServer).MsgAcceptLeave(ctx, req.(*AcceptLeaveRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -708,20 +708,20 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "RegisterAdmin",
-			Handler:    _Msg_RegisterAdmin_Handler,
+			MethodName: "MsgRegisterAdmin",
+			Handler:    _Msg_MsgRegisterAdmin_Handler,
 		},
 		{
-			MethodName: "AddStudent",
-			Handler:    _Msg_AddStudent_Handler,
+			MethodName: "MsgAddStudent",
+			Handler:    _Msg_MsgAddStudent_Handler,
 		},
 		{
-			MethodName: "ApplyLeave",
-			Handler:    _Msg_ApplyLeave_Handler,
+			MethodName: "MsgApplyLeave",
+			Handler:    _Msg_MsgApplyLeave_Handler,
 		},
 		{
-			MethodName: "AcceptLeave",
-			Handler:    _Msg_AcceptLeave_Handler,
+			MethodName: "MsgAcceptLeave",
+			Handler:    _Msg_MsgAcceptLeave_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -940,10 +940,12 @@ func (m *AcceptLeaveRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 		i--
 		dAtA[i] = 0x18
 	}
-	if m.LeaveId != 0 {
-		i = encodeVarintTx(dAtA, i, uint64(m.LeaveId))
+	if len(m.LeaveId) > 0 {
+		i -= len(m.LeaveId)
+		copy(dAtA[i:], m.LeaveId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.LeaveId)))
 		i--
-		dAtA[i] = 0x10
+		dAtA[i] = 0x12
 	}
 	if len(m.Admin) > 0 {
 		i -= len(m.Admin)
@@ -1123,8 +1125,9 @@ func (m *AcceptLeaveRequest) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	if m.LeaveId != 0 {
-		n += 1 + sovTx(uint64(m.LeaveId))
+	l = len(m.LeaveId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
 	}
 	if m.Status != 0 {
 		n += 1 + sovTx(uint64(m.Status))
@@ -1724,10 +1727,10 @@ func (m *AcceptLeaveRequest) Unmarshal(dAtA []byte) error {
 			m.Admin = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 2:
-			if wireType != 0 {
+			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field LeaveId", wireType)
 			}
-			m.LeaveId = 0
+			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
 				if shift >= 64 {
 					return ErrIntOverflowTx
@@ -1737,11 +1740,24 @@ func (m *AcceptLeaveRequest) Unmarshal(dAtA []byte) error {
 				}
 				b := dAtA[iNdEx]
 				iNdEx++
-				m.LeaveId |= uint64(b&0x7F) << shift
+				stringLen |= uint64(b&0x7F) << shift
 				if b < 0x80 {
 					break
 				}
 			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LeaveId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
 		case 3:
 			if wireType != 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Status", wireType)

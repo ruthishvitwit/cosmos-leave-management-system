@@ -3,6 +3,7 @@ package keeper_test
 import (
 	"coslms/x/std/keeper"
 	"coslms/x/std/types"
+	"fmt"
 	"sync"
 	"testing"
 
@@ -108,8 +109,57 @@ func (s *TestSuite) TestAddStudent() {
 		Students: students,
 	}
 	s.skeeper.AddStudent(s.ctx, &req)
+
+}
+func (s *TestSuite) TestApplyLeave() {
+	type applyLeaveTest struct {
+		arg1     types.ApplyLeaveRequest
+		expected string
+	}
+	var applyLeaveTests = []applyLeaveTest{
+		{
+			arg1: types.ApplyLeaveRequest{
+				Address: sdk.AccAddress("r1").String(),
+				Reason:  "reason 1",
+			},
+			expected: "Leave Applied Successfully",
+		},
+		{
+			arg1: types.ApplyLeaveRequest{
+				Address: sdk.AccAddress("r2").String(),
+				Reason:  "reason2",
+			},
+			expected: "Leave Applied Successfully",
+		},
+	}
+	require := s.Require()
+	for _, test := range applyLeaveTests {
+		if output := s.skeeper.ApplyLeave(s.ctx, &test.arg1); output != test.expected {
+			require.Equal(test.expected, output)
+		}
+	}
+
+}
+func (s *TestSuite) TestAcceptLeave() {
+	req := types.AcceptLeaveRequest{
+		Admin:   sdk.AccAddress("abcdef").String(),
+		LeaveId: "1",
+		Status:  types.LeaveStatus_STATUS_ACCEPTED,
+	}
+	res := s.skeeper.AcceptLeave(s.ctx, &req)
+	fmt.Println(res)
+
 }
 func (s *TestSuite) TestGetStudent() {
 	s.TestAddStudent()
 	s.skeeper.GetStudent(s.ctx, &types.GetStudentsRequest{})
+}
+func (s *TestSuite) TestGetLeaveRequests() {
+	s.TestApplyLeave()
+	s.skeeper.GetLeaveRequests(s.ctx, &types.GetLeaveRequestsRequest{})
+}
+
+func (s *TestSuite) TestGetLeaveApprovedRequests() {
+
+	s.skeeper.GetLeaveApprovedRequests(s.ctx, &types.GetLeaveApprovedRequestsRequest{})
 }

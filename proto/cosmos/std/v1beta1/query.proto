@@ -3,13 +3,23 @@ syntax = "proto3";
 package cosmos.std.v1beta1;
 
 option go_package = "x/std/types";
+import "google/api/annotations.proto" ;    
 
 import "cosmos/std/v1beta1/tx.proto";
 
 service Query {
-    rpc GetStudents(GetStudentsRequest) returns (GetStudentsResponse){};
-    rpc GetLeaveRequests(GetLeaveRequestsRequest) returns (GetLeaveRequestsResponse){};
-    rpc GetLeaveApprovedRequests(GetLeaveApprovedRequestsRequest) returns (GetLeaveApprovedRequestsResponse){};
+    rpc QueryGetStudent(GetStudentsRequest) returns (GetStudentsResponse){
+        option (google.api.http).get   ="/cosmos/std/v1beta1/student";
+    };
+    rpc QueryGetLeaveRequests(GetLeaveRequestsRequest) returns (GetLeaveRequestsResponse){
+        option (google.api.http).get   ="/cosmos/std/v1beta1/student";
+    };
+    rpc QueryGetLeaveApprovedRequests(GetLeaveApprovedRequestsRequest) returns (GetLeaveApprovedRequestsResponse){
+        option (google.api.http).get   ="/cosmos/std/v1beta1/student";
+    };
+    rpc QueryGetLeaveStatus(GetLeaveStatusRequest) returns (GetLeaveStatusResponse){
+        option (google.api.http).get   ="/cosmos/std/v1beta1/student";
+    };
 }
 
 message GetStudentsRequest {
@@ -34,4 +44,12 @@ message GetLeaveApprovedRequestsRequest {
 
 message GetLeaveApprovedRequestsResponse {
     repeated ApplyLeaveRequest leaverequests = 1;
+}
+
+message GetLeaveStatusResponse {
+    ApplyLeaveRequest leaverequest = 1;
+}
+
+message GetLeaveStatusRequest {
+    string leaveID = 1;
 }

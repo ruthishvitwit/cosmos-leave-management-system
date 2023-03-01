@@ -4,21 +4,22 @@ import (
 	"coslms/x/std/types"
 	"fmt"
 	"log"
+	"strconv"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	//"github.com/ruthishvitiwt/coslms/x/std/types"
 	// "google.golang.org/genproto/googleapis/actions/sdk/v2"
 )
 
-// func NewStudentKeeper(cdc codec.BinaryCodec, storekey storetypes.StoreKey) Keeper {
-// 	if _, err := sdk.AccAddressFromBech32("h"); err != nil {
-// 		panic(fmt.Errorf("invalid  authority address: %w", err))
-// 	}
-// 	return Keeper{
-// 		cdc:      cdc,
-// 		storeKey: storekey,
-// 	}
-// }
+//	func NewStudentKeeper(cdc codec.BinaryCodec, storekey storetypes.StoreKey) Keeper {
+//		if _, err := sdk.AccAddressFromBech32("h"); err != nil {
+//			panic(fmt.Errorf("invalid  authority address: %w", err))
+//		}
+//		return Keeper{
+//			cdc:      cdc,
+//			storeKey: storekey,
+//		}
+//	}
 func handleError(err error) {
 	if err != nil {
 		log.Fatal(err)
@@ -40,12 +41,12 @@ func (k Keeper) RegisterAdmin(ctx sdk.Context, registerAdmin *types.RegisterAdmi
 	}
 }
 
-func (k Keeper) GetAdmin(ctx sdk.Context, id string) {
-	store := ctx.KVStore(k.storeKey)
-	fmt.Println(types.GetAdminKey(id))
-	v := store.Get(types.GetAdminKey(id))
-	fmt.Println(v)
-}
+// func (k Keeper) GetAdmin(ctx sdk.Context, id string) {
+// 	store := ctx.KVStore(k.storeKey)
+// 	fmt.Println(types.GetAdminKey(id))
+// 	v := store.Get(types.GetAdminKey(id))
+// 	fmt.Println(v)
+// }
 
 func (k Keeper) AddStudent(ctx sdk.Context, req *types.AddStudentRequest) error {
 	store := ctx.KVStore(k.storeKey)
@@ -69,6 +70,66 @@ func (k Keeper) GetStudent(ctx sdk.Context, getStudents *types.GetStudentsReques
 	store := ctx.KVStore(k.storeKey)
 	var t types.Student
 	itr := store.Iterator(types.StdId, nil)
+	for ; itr.Valid(); itr.Next() {
+		k.cdc.Unmarshal(itr.Value(), &t)
+		fmt.Println(t)
+	}
+}
+func (k Keeper) ApplyLeave(ctx sdk.Context, applyLeave *types.ApplyLeaveRequest) string {
+	store := ctx.KVStore(k.storeKey)
+	marshalApplyLeave, err := k.cdc.Marshal(applyLeave)
+	handleError(err)
+	addr := types.StudentLeavesCounterKey(sdk.AccAddress(string(applyLeave.Address)).String())
+	counter := store.Get(addr)
+	if counter == nil {
+		store.Set(addr, []byte("1"))
+	} else {
+		c, err := strconv.Atoi(string(counter))
+		handleError(err)
+		c = c + 1
+		store.Set(addr, []byte(fmt.Sprint(c)))
+	}
+	counter = store.Get(addr)
+	handleError(err)
+	store.Set(types.LeaveStoreKey(applyLeave.Address, string(counter)), marshalApplyLeave)
+	// id := types.LeaveStoreKey(applyLeave.Address, string(counter))
+	return "Leave Applied Successfully"
+}
+
+func (k Keeper) AcceptLeave(ctx sdk.Context, acceptLeave *types.AcceptLeaveRequest) string {
+	store := ctx.KVStore(k.storeKey)
+	marshalAcceptLeave, err := k.cdc.Marshal(acceptLeave)
+	handleError(err)
+	leaveid := store.Get(types.StudentLeavesCounterKey(acceptLeave.LeaveId))
+	store.Set(types.AcceptLeaveStoreKey(string(leaveid)), marshalAcceptLeave)
+	return "Leave Status Updated"
+}
+
+// func (k Keeper) GetLeaveStatus(ctx sdk.Context, getLeaveStatus *types.GetLeaveStatusRequest) string {
+// 	store := ctx.KVStore(k.storeKey)
+// 	leaveid := store.Get(types.StudentLeavesCounterKey(getLeaveStatus.LeaveID))
+// 	res := store.Get(types.AcceptLeaveStoreKey(string(leaveid)))
+// 	var leave types.AcceptLeaveRequest
+// 	k.cdc.Unmarshal(res, &leave)
+// 	fmt.Println(leave)
+// 	status := leave.Status.String()
+// 	return status
+// }
+
+func (k Keeper) GetLeaveRequests(ctx sdk.Context, getLeaveRequests *types.GetLeaveRequestsRequest) {
+	store := ctx.KVStore(k.storeKey)
+	var t types.ApplyLeaveRequest
+	itr := store.Iterator(types.LeaveId, nil)
+	for ; itr.Valid(); itr.Next() {
+		k.cdc.Unmarshal(itr.Value(), &t)
+		fmt.Println(t)
+	}
+}
+
+func (k Keeper) GetLeaveApprovedRequests(ctx sdk.Context, getLeaveApprovedRequests *types.GetLeaveApprovedRequestsRequest) {
+	store := ctx.KVStore(k.storeKey)
+	var t types.ApplyLeaveRequest
+	itr := store.Iterator(types.LeaveAccept, nil)
 	for ; itr.Valid(); itr.Next() {
 		k.cdc.Unmarshal(itr.Value(), &t)
 		fmt.Println(t)

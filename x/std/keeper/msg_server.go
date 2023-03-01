@@ -9,32 +9,33 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-var _ types.MsgServer = &msgServer{}
+var _ types.MsgServer = Keeper{}
 
-type msgServer struct {
-	Keeper
-	types.UnimplementedMsgServer
-}
+// type msgServer struct {
+// 	Keeper
+// 	types.UnimplementedMsgServer
+// }
 
-func NewMsgServerImpl(k Keeper) types.MsgServer {
-	return &msgServer{
-		Keeper: k,
-	}
-}
+// func NewMsgServerImpl(k Keeper) types.MsgServer {
+// 	return &msgServer{
+// 		Keeper: k,
+// 	}
+// }
 
-func (k msgServer) AddStudent(ctx context.Context, students *types.AddStudentRequest) (*types.AddStudentResponse, error) {
+func (k Keeper) MsgAddStudent(ctx context.Context, students *types.AddStudentRequest) (*types.AddStudentResponse, error) {
 	sdkCtx := sdk.UnwrapSDKContext(ctx)
-	k.Keeper.AddStudent(sdkCtx, students)
+	k.AddStudent(sdkCtx, students)
 	return &types.AddStudentResponse{}, nil
 }
 
-func (k msgServer) ApplyLeave(context.Context, *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
+func (k Keeper) MsgApplyLeave(context.Context, *types.ApplyLeaveRequest) (*types.ApplyLeaveResponse, error) {
 	return &types.ApplyLeaveResponse{}, nil
 }
 
-func (k msgServer) RegisterAdmin(context.Context, *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
+func (k Keeper) MsgRegisterAdmin(context.Context, *types.RegisterAdminRequest) (*types.RegisterAdminResponse, error) {
 	return &types.RegisterAdminResponse{}, nil
 }
 
-//func (k msgServer) AcceptLeave(context.Context, *types.AcceptLeaveRequest) (*types.AcceptLeaveResponse, error) {
-//return &types.AcceptLeaveResponse{}, nil
+func (k Keeper) MsgAcceptLeave(context.Context, *types.AcceptLeaveRequest) (*types.AcceptLeaveResponse, error) {
+	return &types.AcceptLeaveResponse{}, nil
+}
