@@ -23,9 +23,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	serverconfig "github.com/cosmos/cosmos-sdk/server/config"
 	servertypes "github.com/cosmos/cosmos-sdk/server/types"
-	"github.com/cosmos/cosmos-sdk/simapp"
 
-	lmsapp "coslms/baseapp"
+	lmsapp "coslms/simapp"
 
 	"github.com/cosmos/cosmos-sdk/simapp/params"
 
@@ -40,7 +39,7 @@ import (
 // NewRootCmd creates a new root command for simd. It is called once in the
 // main function.
 func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
-	encodingConfig := simapp.MakeTestEncodingConfig()
+	encodingConfig := lmsapp.MakeTestEncodingConfig()
 	initClientCtx := client.Context{}.
 		WithCodec(encodingConfig.Codec).
 		WithInterfaceRegistry(encodingConfig.InterfaceRegistry).
@@ -48,7 +47,7 @@ func NewRootCmd() (*cobra.Command, params.EncodingConfig) {
 		WithLegacyAmino(encodingConfig.Amino).
 		WithInput(os.Stdin).
 		WithAccountRetriever(types.AccountRetriever{}).
-		WithHomeDir(simapp.DefaultNodeHome).
+		WithHomeDir(lmsapp.DefaultNodeHome).
 		WithViper("") // In simapp, we don't use any prefix for env variables.
 
 	rootCmd := &cobra.Command{
@@ -163,7 +162,7 @@ func initRootCmd(rootCmd *cobra.Command, encodingConfig params.EncodingConfig) {
 		genutilcli.InitCmd(lmsapp.ModuleBasics, lmsapp.DefaultNodeHome),
 		genutilcli.CollectGenTxsCmd(banktypes.GenesisBalancesIterator{}, lmsapp.DefaultNodeHome),
 		genutilcli.MigrateGenesisCmd(),
-		genutilcli.GenTxCmd(lmsapp.ModuleBasics, encodingConfig.TxConfig, banktypes.GenesisBalancesIterator{}, simapp.DefaultNodeHome),
+		genutilcli.GenTxCmd(lmsapp.ModuleBasics, encodingConfig.TxConfig, banktypes.GenesisBalancesIterator{}, lmsapp.DefaultNodeHome),
 		genutilcli.ValidateGenesisCmd(lmsapp.ModuleBasics),
 		AddGenesisAccountCmd(lmsapp.DefaultNodeHome),
 		tmcli.NewCompletionCmd(rootCmd, true),

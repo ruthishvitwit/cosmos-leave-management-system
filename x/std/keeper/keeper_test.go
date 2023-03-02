@@ -85,6 +85,10 @@ func (s *TestSuite) TestRegisterAdmin() {
 			arg1:     types.RegisterAdminRequest{Name: "ruth1", Address: sdk.AccAddress("sabak").String()},
 			expected: nil,
 		},
+		{
+			arg1:     types.RegisterAdminRequest{Name: "ruth2", Address: sdk.AccAddress("sabal").String()},
+			expected: nil,
+		},
 	}
 	require := s.Require()
 	for _, test := range registerAdminTests {
@@ -102,6 +106,9 @@ func (s *TestSuite) TestAddStudent() {
 		},
 		{
 			Address: sdk.AccAddress("a2").String(), Name: "r2", Id: "2",
+		},
+		{
+			Address: sdk.AccAddress("a3").String(), Name: "r3", Id: "2",
 		},
 	}
 	req := types.AddStudentRequest{
@@ -148,10 +155,10 @@ func (s *TestSuite) TestAcceptLeave() {
 	}
 	res := s.skeeper.AcceptLeave(s.ctx, &req)
 	fmt.Println(res)
-
 }
 func (s *TestSuite) TestGetStudent() {
 	s.TestAddStudent()
+
 	s.skeeper.GetStudent(s.ctx, &types.GetStudentsRequest{})
 }
 func (s *TestSuite) TestGetLeaveRequests() {

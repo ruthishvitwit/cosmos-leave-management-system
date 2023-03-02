@@ -41,13 +41,6 @@ func (k Keeper) RegisterAdmin(ctx sdk.Context, registerAdmin *types.RegisterAdmi
 	}
 }
 
-// func (k Keeper) GetAdmin(ctx sdk.Context, id string) {
-// 	store := ctx.KVStore(k.storeKey)
-// 	fmt.Println(types.GetAdminKey(id))
-// 	v := store.Get(types.GetAdminKey(id))
-// 	fmt.Println(v)
-// }
-
 func (k Keeper) AddStudent(ctx sdk.Context, req *types.AddStudentRequest) error {
 	store := ctx.KVStore(k.storeKey)
 	m, err := k.cdc.Marshal(req)
@@ -60,19 +53,14 @@ func (k Keeper) AddStudent(ctx sdk.Context, req *types.AddStudentRequest) error 
 	return nil
 }
 
-// func (k Keeper) GetStudent(ctx sdk.Context, id string) {
-// 	store := ctx.KVStore(k.storeKey)
-// 	m := store.Get(types.StdKey(id))
-// 	fmt.Println(m)
-
-// }
 func (k Keeper) GetStudent(ctx sdk.Context, getStudents *types.GetStudentsRequest) {
 	store := ctx.KVStore(k.storeKey)
 	var t types.Student
+	fmt.Println("the students are ", t)
 	itr := store.Iterator(types.StdId, nil)
 	for ; itr.Valid(); itr.Next() {
 		k.cdc.Unmarshal(itr.Value(), &t)
-		fmt.Println(t)
+		fmt.Println("address:", t.Address, "  Id:", t.Id, "  name:", t.Name)
 	}
 }
 func (k Keeper) ApplyLeave(ctx sdk.Context, applyLeave *types.ApplyLeaveRequest) string {
@@ -107,14 +95,6 @@ func (k Keeper) AcceptLeave(ctx sdk.Context, acceptLeave *types.AcceptLeaveReque
 
 // func (k Keeper) GetLeaveStatus(ctx sdk.Context, getLeaveStatus *types.GetLeaveStatusRequest) string {
 // 	store := ctx.KVStore(k.storeKey)
-// 	leaveid := store.Get(types.StudentLeavesCounterKey(getLeaveStatus.LeaveID))
-// 	res := store.Get(types.AcceptLeaveStoreKey(string(leaveid)))
-// 	var leave types.AcceptLeaveRequest
-// 	k.cdc.Unmarshal(res, &leave)
-// 	fmt.Println(leave)
-// 	status := leave.Status.String()
-// 	return status
-// }
 
 func (k Keeper) GetLeaveRequests(ctx sdk.Context, getLeaveRequests *types.GetLeaveRequestsRequest) {
 	store := ctx.KVStore(k.storeKey)
